@@ -115,8 +115,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\BookContext.cs" />
     <Compile Include="Classes\Common\Connection.cs" />
+    <Compile Include="Classes\OrderContext.cs" />
+    <Compile Include="Classes\OrderItemContext.cs" />
     <Compile Include="Classes\UserContext.cs" />
+    <Compile Include="Interfaces\IBook.cs" />
+    <Compile Include="Interfaces\IOrder.cs" />
+    <Compile Include="Interfaces\IOrderItem.cs" />
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

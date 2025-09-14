@@ -2,10 +2,10 @@
 
 namespace Book_store.Interfaces
 {
-    public interface IUser
+    public interface IBook
     {
         void Save(bool Update = false);
-        List<Classes.UserContext> AllUsers();
+        List<Classes.BookContext> AllBooks();
         void Delete();
     }
 }

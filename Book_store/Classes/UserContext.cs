@@ -42,7 +42,7 @@ namespace Book_store.Classes
             {
                 Connection.Query("INSERT INTO `Users` " + 
                                     "(`Login`, `Password`) " + 
-                                    $"VALUES ('{this.Login}', '{this.Password}')", connection);
+                                 $"VALUES ('{this.Login}', '{this.Password}')", connection);
             }
         }
 
