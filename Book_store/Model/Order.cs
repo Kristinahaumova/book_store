@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Book_store.Model
 {
@@ -15,11 +12,11 @@ namespace Book_store.Model
 
         public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
-        public Order(int idUser, DateTime orderTime, int totalCost) 
+        /*public Order(int idUser, DateTime orderTime, int totalCost) 
         {
             IdUser = idUser;
             OrderTime = orderTime;
             TotalCost = totalCost;
-        }
+        }*/
     }
 }

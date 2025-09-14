@@ -116,6 +116,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Common\Connection.cs" />
+    <Compile Include="Classes\UserContext.cs" />
+    <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -154,7 +156,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Elements\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Pages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

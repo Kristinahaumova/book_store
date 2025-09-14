@@ -10,7 +10,7 @@
         public string BookGenre { get; set; }
         public int Price { get; set; }
 
-        public Book(string name, string description, string authorName, string bookRegion, string bookGenre, int price) 
+        /*public Book(string name, string description, string authorName, string bookRegion, string bookGenre, int price) 
         {
             Name = name;
             Description = description;
@@ -18,6 +18,6 @@
             BookRegion = bookRegion;
             BookGenre = bookGenre;
             Price = price;
-        }
+        }*/
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Book_store.Model
+﻿namespace Book_store.Model
 {
     public class OrderItem
     {
@@ -15,11 +9,11 @@ namespace Book_store.Model
         public int Quantity { get; set; }
         public int Price => Book.Price;
 
-        public OrderItem(int bookId, int quantity, Book book)
+        /*public OrderItem(int bookId, int quantity, Book book)
         {
             BookId = bookId;
             Quantity = quantity;
             Book = book;
-        }
+        }*/
     }
 }

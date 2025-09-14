@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Book_store.Model
+﻿namespace Book_store.Model
 {
     public class User
     {
@@ -13,10 +7,10 @@ namespace Book_store.Model
         public string Password { get; set; }
 
 
-        public User(string login, string password) 
+        /*public User(string login, string password)
         {
             Login = login;
             Password = password;
-        }
+        }*/
     }
 }
