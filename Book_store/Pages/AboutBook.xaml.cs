@@ -13,23 +13,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Book_store
+namespace Book_store.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для AboutBook.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AboutBook : Page
     {
-        public static MainWindow init;
-        public MainWindow()
+        public AboutBook()
         {
             InitializeComponent();
-            init = this;
-            OpenPage(new Pages.Authorization());
         }
-        public void OpenPage(Page Page) 
+
+        private void Back(object sender, RoutedEventArgs e)
         {
-            frame.Navigate(Page);
+
+        }
+
+        private void addToCart(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

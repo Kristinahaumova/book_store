@@ -32,7 +32,7 @@ namespace Book_store.Pages
 
         private void Register(object sender, RoutedEventArgs e)
         {
-
+            MainWindow.init.OpenPage(new Registration());
         }
     }
 }

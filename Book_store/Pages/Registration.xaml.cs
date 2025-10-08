@@ -32,7 +32,7 @@ namespace Book_store.Pages
 
         private void Login(object sender, RoutedEventArgs e)
         {
-
+            MainWindow.init.OpenPage(new Authorization());
         }
     }
 }
