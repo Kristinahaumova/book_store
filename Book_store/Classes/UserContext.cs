@@ -20,7 +20,8 @@ namespace Book_store.Classes
                 {
                     Id = data.GetInt32(0),
                     Login = data.GetString(1),
-                    Password = data.GetString(2)
+                    Password = data.GetString(2),
+                    Role = data.GetBoolean(3)
                 };
                 allUsers.Add(user);
             }
@@ -35,14 +36,15 @@ namespace Book_store.Classes
                 Connection.Query("UPDATE `Users` " +
                                     "SET " +
                                         $"`Login` = '{this.Login}', " +
-                                        $"`Password` = '{this.Password}' " +
+                                        $"`Password` = '{this.Password}', " +
+                                        $"`Role` = '{this.Role}' " +
                                     $"WHERE `Id` = {this.Id}", connection);
             }
             else 
             {
                 Connection.Query("INSERT INTO `Users` " + 
-                                    "(`Login`, `Password`) " + 
-                                 $"VALUES ('{this.Login}', '{this.Password}')", connection);
+                                    "(`Login`, `Password`, `Role`) " + 
+                                 $"VALUES ('{this.Login}', '{this.Password}', '{this.Role}')", connection);
             }
         }
 

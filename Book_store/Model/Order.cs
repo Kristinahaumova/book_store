@@ -11,12 +11,5 @@ namespace Book_store.Model
         public int TotalCost { get; set; }
 
         public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
-
-        /*public Order(int idUser, DateTime orderTime, int totalCost) 
-        {
-            IdUser = idUser;
-            OrderTime = orderTime;
-            TotalCost = totalCost;
-        }*/
     }
 }

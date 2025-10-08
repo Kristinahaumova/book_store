@@ -43,6 +43,8 @@ namespace Book_store.Classes
         public void Save(bool Update = false)
         {
             MySqlConnection connection = Connection.OpenConnection();
+            int currentOrderId = this.Id; 
+
             if (Update)
             {
                 Connection.Query("UPDATE `Orders` " +
@@ -51,18 +53,38 @@ namespace Book_store.Classes
                                         $"`OrderTime` = '{this.OrderTime.ToString("yyyy-MM-dd HH:mm:ss")}', " +
                                         $"`TotalCost` = {this.TotalCost} " +
                                     $"WHERE `Id` = {this.Id}", connection);
+
+                Connection.Query($"DELETE FROM `OrderItems` WHERE `OrderId` = {this.Id}", connection);
+                currentOrderId = this.Id;
             }
             else
             {
                 Connection.Query("INSERT INTO `Orders` " +
                                     "(`IdUser`, `OrderTime`, `TotalCost`) " +
                                  $"VALUES ({this.IdUser}, '{this.OrderTime.ToString("yyyy-MM-dd HH:mm:ss")}', {this.TotalCost})", connection);
+
+                MySqlDataReader idReader = Connection.Query("SELECT LAST_INSERT_ID()", connection);
+                if (idReader.Read())
+                {
+                    currentOrderId = idReader.GetInt32(0);
+                    this.Id = currentOrderId; 
+                }
             }
+
+            foreach (var item in this.OrderItems)
+            {
+                Connection.Query("INSERT INTO `OrderItems` " +
+                                    "(`OrderId`, `BookId`, `Quantity`, `Price`) " +
+                                 $"VALUES ({currentOrderId}, {item.BookId}, {item.Quantity}, {item.Price})", connection);
+            }
+
+            MySqlConnection.ClearPool(connection);
         }
 
         public void Delete()
         {
             MySqlConnection connection = Connection.OpenConnection();
+            Connection.Query($"DELETE FROM `OrderItems` WHERE `OrderId` = {this.Id}", connection);
             Connection.Query($"DELETE FROM `Orders` WHERE `Id` = {this.Id}", connection);
             MySqlConnection.ClearPool(connection);
         }
