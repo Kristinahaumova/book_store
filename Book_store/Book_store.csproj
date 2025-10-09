@@ -111,6 +111,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Elements\OrderItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -127,6 +131,9 @@
     <Compile Include="Elements\BookItem.xaml.cs">
       <DependentUpon>BookItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Elements\OrderItem.xaml.cs">
+      <DependentUpon>OrderItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IBook.cs" />
     <Compile Include="Interfaces\IOrder.cs" />
     <Compile Include="Interfaces\IOrderItem.cs" />
@@ -139,7 +146,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\AdminMainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Authorization.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\BooksManagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\BooksPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\CartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\OrdersManagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\OrdersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -148,6 +179,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\UserMainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UsersManagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UsersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,14 +199,38 @@
     <Compile Include="Pages\AboutBook.xaml.cs">
       <DependentUpon>AboutBook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AdminMainMenu.xaml.cs">
+      <DependentUpon>AdminMainMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Authorization.xaml.cs">
       <DependentUpon>Authorization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\BooksManagePage.xaml.cs">
+      <DependentUpon>BooksManagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\BooksPage.xaml.cs">
+      <DependentUpon>BooksPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\CartPage.xaml.cs">
+      <DependentUpon>CartPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\OrdersManagePage.xaml.cs">
+      <DependentUpon>OrdersManagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\OrdersPage.xaml.cs">
+      <DependentUpon>OrdersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\UserMainMenu.xaml.cs">
       <DependentUpon>UserMainMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\UsersManagePage.xaml.cs">
+      <DependentUpon>UsersManagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\UsersPage.xaml.cs">
+      <DependentUpon>UsersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -195,7 +258,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\book1.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\cart.png" />
   </ItemGroup>

@@ -44,29 +44,6 @@
                            FontSize="24" 
                            FontWeight="Bold" 
                            Foreground="#2C3E50"/>
-                <Button Grid.Column="1" 
-                        Content="Профиль" 
-                        Click="Profile"
-                        Width="120" 
-                        Height="40"
-                        Background="#3498DB" 
-                        Foreground="White" 
-                        BorderThickness="0" 
-                        FontSize="14" 
-                        FontWeight="Bold" 
-                        Cursor="Hand"
-                        HorizontalAlignment="Right"
-                        Margin="0,0,50,0">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#2980B9"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
             </Grid>
         </Border>
 

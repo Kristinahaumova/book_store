@@ -16,21 +16,31 @@ using System.Windows.Shapes;
 namespace Book_store.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для AboutBook.xaml
+    /// Логика взаимодействия для OrdersManagePage.xaml
     /// </summary>
-    public partial class AboutBook : Page
+    public partial class OrdersManagePage : Page
     {
-        public AboutBook()
+        public OrdersManagePage()
         {
             InitializeComponent();
         }
 
         private void Back(object sender, RoutedEventArgs e)
         {
-            MainWindow.init.OpenPage(new UserMainMenu());
+
         }
 
-        private void addToCart(object sender, RoutedEventArgs e)
+        private void Save(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddItem(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteItem(object sender, RoutedEventArgs e)
         {
 
         }

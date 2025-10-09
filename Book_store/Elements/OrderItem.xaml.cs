@@ -13,24 +13,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Book_store.Pages
+namespace Book_store.Elements
 {
     /// <summary>
-    /// Логика взаимодействия для AboutBook.xaml
+    /// Логика взаимодействия для OrderItem.xaml
     /// </summary>
-    public partial class AboutBook : Page
+    public partial class OrderItem : UserControl
     {
-        public AboutBook()
+        public OrderItem()
         {
             InitializeComponent();
         }
 
-        private void Back(object sender, RoutedEventArgs e)
+        private void Plus(object sender, RoutedEventArgs e)
         {
-            MainWindow.init.OpenPage(new UserMainMenu());
+
         }
 
-        private void addToCart(object sender, RoutedEventArgs e)
+        private void Minus(object sender, RoutedEventArgs e)
         {
 
         }
