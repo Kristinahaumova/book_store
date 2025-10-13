@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Book_store.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,24 +21,26 @@ namespace Book_store.Pages
     /// </summary>
     public partial class AdminMainMenu : Page
     {
-        public AdminMainMenu()
+        private UserContext currentUser;
+        public AdminMainMenu(UserContext user = null)
         {
             InitializeComponent();
+            currentUser = user;
         }
 
         private void goToBooks(object sender, RoutedEventArgs e)
         {
-
+            MainWindow.init.OpenPage(new BooksPage(currentUser));
         }
 
         private void goToOrders(object sender, RoutedEventArgs e)
         {
-
+            MainWindow.init.OpenPage(new OrdersPage(currentUser));
         }
 
         private void goToUsers(object sender, RoutedEventArgs e)
         {
-
+            MainWindow.init.OpenPage(new UsersPage(currentUser));
         }
     }
 }

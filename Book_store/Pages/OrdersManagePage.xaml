@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Book_store.Pages"
-      Height="450" Width="800"
       MinHeight="450" MinWidth="800"
       Title="OrdersManagePage" Background="White">
 
@@ -92,18 +91,6 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-
-                <Button Grid.Row="3" 
-                        Content="Добавить позицию" 
-                        Click="AddItem"
-                        Width="150" 
-                        Height="35"
-                        Background="#3498DB" 
-                        Foreground="White" 
-                        BorderThickness="0" 
-                        FontSize="14" 
-                        HorizontalAlignment="Center"
-                        Margin="0,0,0,20"/>
 
                 <TextBlock Grid.Row="4" 
                            Text="{Binding TotalCost, StringFormat='Общая сумма: {0} руб.'}" 

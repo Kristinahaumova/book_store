@@ -16,7 +16,6 @@
             BorderThickness="1" 
             CornerRadius="8" 
             Padding="15" 
-            Margin="5"
             MouseLeftButtonDown="Border_MouseLeftButtonDown">
         <Border.Effect>
             <DropShadowEffect Color="Gray" Direction="270" ShadowDepth="1" BlurRadius="3" Opacity="0.2"/>
@@ -36,7 +35,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" 
@@ -59,17 +58,17 @@
                        FontSize="16" 
                        FontWeight="Bold" 
                        Foreground="#27AE60" 
-                       Margin="0,0,0,0"/>
+                       Margin="0,0,0,10"/>
 
             <Button Grid.Row="3" 
                     Content="Купить" 
                     Click="addCart" 
                     Width="80" 
-                    Height="20"
+                    Height="35"
                     Background="#27AE60" 
                     Foreground="White" 
                     BorderThickness="0" 
-                    FontSize="10" 
+                    FontSize="12" 
                     FontWeight="Bold" 
                     Cursor="Hand"
                     HorizontalAlignment="Right">
@@ -83,8 +82,6 @@
                     </Style>
                 </Button.Style>
             </Button>
-
-            <TextBlock Grid.Row="3" Text="" />
         </Grid>
     </Border>
 </UserControl>

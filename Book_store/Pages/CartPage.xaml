@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Book_store.Elements"
-      Height="450" Width="800"
       MinHeight="450" MinWidth="800"
       Title="Корзина" Background="White">
 
@@ -47,7 +46,7 @@
                 <Button Grid.Column="1" 
                         Content="Продолжить покупки" 
                         Click="Back" 
-                        Width="150" 
+                        Width="160" 
                         Height="40"
                         Background="#95A5A6" 
                         Foreground="White" 

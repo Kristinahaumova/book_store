@@ -18,6 +18,12 @@ namespace Book_store.Classes.Common
             return command.ExecuteReader();
         }
 
+        public static int ExecuteNonQuery(string SQL, MySqlConnection connection)
+        {
+            MySqlCommand command = new MySqlCommand(SQL, connection);
+            return command.ExecuteNonQuery(); 
+        }
+
         public static void CloseConnection(MySqlConnection connection)
         {
             connection.Close();

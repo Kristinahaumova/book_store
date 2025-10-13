@@ -87,7 +87,9 @@
                         </Style>
                     </RepeatButton.Style>
                 </RepeatButton>
-                <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" 
+                <TextBox x:Name="txtCount"
+                         Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                         LostFocus="Quantity_LostFocus"
                          Width="40" 
                          Height="25"
                          HorizontalContentAlignment="Center"
@@ -134,7 +136,7 @@
 
             <Button Grid.Row="2" Grid.Column="1" Grid.RowSpan="3"
                     Content="Удалить" 
-                    Command="{Binding RemoveCommand}" 
+                    Click="DeleteItem" 
                     Width="80" 
                     Height="35"
                     Background="#E74C3C" 

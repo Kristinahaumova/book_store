@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Book_store.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,19 +21,75 @@ namespace Book_store.Pages
     /// </summary>
     public partial class BooksManagePage : Page
     {
-        public BooksManagePage()
+        private BookContext bookToManage;
+        private UserContext currentAdminUser;
+        private bool isEditMode;
+        public BooksManagePage(BookContext book, UserContext adminUser, bool editMode = true)
         {
             InitializeComponent();
+            bookToManage = book ?? new BookContext();
+            currentAdminUser = adminUser;
+            isEditMode = editMode;
+            DataContext = bookToManage;
         }
 
         private void Save(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(bookToManage.Name))
+            {
+                MessageBox.Show("Название не может быть пустым!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (bookToManage.Name.Length < 3)
+            {
+                MessageBox.Show("Название должно содержать минимум 3 символа!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
+            if (string.IsNullOrWhiteSpace(bookToManage.AuthorName))
+            {
+                MessageBox.Show("Автор не может быть пустым!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(bookToManage.BookRegion))
+            {
+                MessageBox.Show("Регион не может быть пустым!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(bookToManage.BookGenre))
+            {
+                MessageBox.Show("Жанр не может быть пустым!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (bookToManage.Price <= 0)
+            {
+                MessageBox.Show("Цена должна быть положительным числом!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(bookToManage.Description) && bookToManage.Description.Length < 10)
+            {
+                MessageBox.Show("Описание должно содержать минимум 10 символов!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            try
+            {
+                bookToManage.Save(isEditMode);
+                MessageBox.Show(isEditMode ? "Книга обновлена!" : "Книга добавлена!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                MainWindow.init.OpenPage(new BooksPage(currentAdminUser));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при сохранении: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void Back(object sender, RoutedEventArgs e)
         {
-
+            MainWindow.init.OpenPage(new BooksPage(currentAdminUser));
         }
     }
 }

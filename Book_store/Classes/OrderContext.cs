@@ -2,6 +2,7 @@
 using Book_store.Interfaces;
 using Book_store.Model;
 using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 
 namespace Book_store.Classes
@@ -11,82 +12,143 @@ namespace Book_store.Classes
         public List<OrderContext> AllOrders()
         {
             List<OrderContext> allOrders = new List<OrderContext>();
-            MySqlConnection connection = Connection.OpenConnection();
-            MySqlDataReader data = Connection.Query("SELECT * FROM `Orders`", connection);
-            while (data.Read())
+            using (MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;database=book_store;uid=root;"))  // Используй path из Connection
             {
-                OrderContext order = new OrderContext
+                connection.Open();
+                try
                 {
-                    Id = data.GetInt32(0),
-                    IdUser = data.GetInt32(1),
-                    OrderTime = data.GetDateTime(2),
-                    TotalCost = data.GetInt32(3)
-                };
-                var itemData = Connection.Query("SELECT * FROM `OrderItems`" +
-                                                $" WHERE `OrderId` = {order.Id}", connection);
-                while (itemData.Read()) 
-                {
-                    order.OrderItems.Add(new OrderItem 
+                    using (MySqlDataReader data = new MySqlCommand("SELECT * FROM `Orders`", connection).ExecuteReader())
                     {
-                        Id = itemData.GetInt32(0),
-                        OrderId = itemData.GetInt32(1),
-                        BookId = itemData.GetInt32(2),
-                        Quantity = itemData.GetInt32(3),
-                        Price = itemData.GetInt32(4)
-                    });
+                        while (data.Read())
+                        {
+                            OrderContext order = new OrderContext
+                            {
+                                Id = data.GetInt32(0),
+                                IdUser = data.GetInt32(1),
+                                OrderTime = data.GetDateTime(2),
+                                TotalCost = data.GetInt32(3)
+                            };
+
+                            // Загружаем items на отдельном connection, чтобы избежать nested reader
+                            using (MySqlConnection itemConn = new MySqlConnection("server=localhost;port=3306;database=book_store;uid=root;"))
+                            {
+                                itemConn.Open();
+                                using (MySqlDataReader itemData = new MySqlCommand($"SELECT * FROM `OrderItems` WHERE `OrderId` = {order.Id}", itemConn).ExecuteReader())
+                                {
+                                    while (itemData.Read())
+                                    {
+                                        order.OrderItems.Add(new OrderItemContext
+                                        {
+                                            Id = itemData.GetInt32(0),
+                                            OrderId = itemData.GetInt32(1),
+                                            BookId = itemData.GetInt32(2),
+                                            Quantity = itemData.GetInt32(3),
+                                            Price = itemData.GetInt32(4)
+                                        });
+                                    }
+                                }
+                            }
+
+                            allOrders.Add(order);
+                        }
+                    }
                 }
-                allOrders.Add(order);
+                catch (Exception ex)
+                {
+                    // Логируй ex, если нужно
+                    throw;
+                }
             }
             return allOrders;
         }
 
         public void Save(bool Update = false)
         {
-            MySqlConnection connection = Connection.OpenConnection();
-            int currentOrderId = this.Id; 
-
-            if (Update)
+            using (MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;database=book_store;uid=root;"))
             {
-                Connection.Query("UPDATE `Orders` " +
-                                    "SET " +
-                                        $"`IdUser` = {this.IdUser}, " +
-                                        $"`OrderTime` = '{this.OrderTime.ToString("yyyy-MM-dd HH:mm:ss")}', " +
-                                        $"`TotalCost` = {this.TotalCost} " +
-                                    $"WHERE `Id` = {this.Id}", connection);
-
-                Connection.Query($"DELETE FROM `OrderItems` WHERE `OrderId` = {this.Id}", connection);
-                currentOrderId = this.Id;
-            }
-            else
-            {
-                Connection.Query("INSERT INTO `Orders` " +
-                                    "(`IdUser`, `OrderTime`, `TotalCost`) " +
-                                 $"VALUES ({this.IdUser}, '{this.OrderTime.ToString("yyyy-MM-dd HH:mm:ss")}', {this.TotalCost})", connection);
-
-                MySqlDataReader idReader = Connection.Query("SELECT LAST_INSERT_ID()", connection);
-                if (idReader.Read())
+                connection.Open();
+                try
                 {
-                    currentOrderId = idReader.GetInt32(0);
-                    this.Id = currentOrderId; 
+                    if (Update)
+                    {
+                        string sql = "UPDATE `Orders` " +
+                                     "SET " +
+                                         "`IdUser` = @IdUser, " +
+                                         "`OrderTime` = @OrderTime, " +
+                                         "`TotalCost` = @TotalCost " +
+                                     "WHERE `Id` = @Id";
+                        using (MySqlCommand cmd = new MySqlCommand(sql, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@IdUser", IdUser);
+                            cmd.Parameters.AddWithValue("@OrderTime", OrderTime);
+                            cmd.Parameters.AddWithValue("@TotalCost", TotalCost);
+                            cmd.Parameters.AddWithValue("@Id", Id);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    else
+                    {
+                        string sql = "INSERT INTO `Orders` " +
+                                     "(`IdUser`, `OrderTime`, `TotalCost`) " +
+                                     "VALUES (@IdUser, @OrderTime, @TotalCost)";
+                        using (MySqlCommand cmd = new MySqlCommand(sql, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@IdUser", IdUser);
+                            cmd.Parameters.AddWithValue("@OrderTime", OrderTime);
+                            cmd.Parameters.AddWithValue("@TotalCost", TotalCost);
+                            cmd.ExecuteNonQuery();
+
+                            // Получаем ID
+                            cmd.CommandText = "SELECT LAST_INSERT_ID()";
+                            Id = Convert.ToInt32(cmd.ExecuteScalar());
+                        }
+                    }
+
+                    if (Update)
+                    {
+                        using (MySqlCommand cmd = new MySqlCommand($"DELETE FROM `OrderItems` WHERE `OrderId` = @Id", connection))
+                        {
+                            cmd.Parameters.AddWithValue("@Id", Id);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    foreach (var item in OrderItems)
+                    {
+                        item.OrderId = Id;
+                        ((OrderItemContext)item).Save(false);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
                 }
             }
-
-            foreach (var item in this.OrderItems)
-            {
-                Connection.Query("INSERT INTO `OrderItems` " +
-                                    "(`OrderId`, `BookId`, `Quantity`, `Price`) " +
-                                 $"VALUES ({currentOrderId}, {item.BookId}, {item.Quantity}, {item.Price})", connection);
-            }
-
-            MySqlConnection.ClearPool(connection);
         }
 
         public void Delete()
         {
-            MySqlConnection connection = Connection.OpenConnection();
-            Connection.Query($"DELETE FROM `OrderItems` WHERE `OrderId` = {this.Id}", connection);
-            Connection.Query($"DELETE FROM `Orders` WHERE `Id` = {this.Id}", connection);
-            MySqlConnection.ClearPool(connection);
+            using (MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;database=book_store;uid=root;"))
+            {
+                connection.Open();
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("DELETE FROM `OrderItems` WHERE `OrderId` = @Id", connection))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", Id);
+                        cmd.ExecuteNonQuery();
+                    }
+                    using (MySqlCommand cmd = new MySqlCommand("DELETE FROM `Orders` WHERE `Id` = @Id", connection))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", Id);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
         }
     }
 }

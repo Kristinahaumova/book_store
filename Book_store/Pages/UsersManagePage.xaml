@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Book_store.Pages"
-      Height="450" Width="800"
       MinHeight="450" MinWidth="800"
       Title="UsersManagePage" Background="White">
 
@@ -59,7 +58,8 @@
                        FontWeight="SemiBold" 
                        Margin="0,0,0,5" 
                        Foreground="#34495E"/>
-                <TextBox Grid.Row="3" 
+                <TextBox Grid.Row="3"
+                         x:Name="loginTxtBox"
                          Text="{Binding Login, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          FontSize="14" 
                          Padding="12,10" 
@@ -75,6 +75,7 @@
                        Margin="0,0,0,5" 
                        Foreground="#34495E"/>
                 <PasswordBox Grid.Row="5" 
+                             x:Name="passwordPwdBox"
                              Password=""
                              FontSize="14" 
                              Padding="12,10" 

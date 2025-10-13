@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Book_store.Classes;
+using Book_store.Model;
+using Book_store.Pages;
 
 namespace Book_store
 {
@@ -21,6 +24,8 @@ namespace Book_store
     public partial class MainWindow : Window
     {
         public static MainWindow init;
+        public UserContext CurrentUser { get; set; }
+        public System.Collections.ObjectModel.ObservableCollection<Book_store.Classes.OrderItemContext> CartItems { get; set; } = new System.Collections.ObjectModel.ObservableCollection<Book_store.Classes.OrderItemContext>();
         public MainWindow()
         {
             InitializeComponent();

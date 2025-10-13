@@ -124,6 +124,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\BookContext.cs" />
+    <Compile Include="Classes\CartViewModel.cs" />
     <Compile Include="Classes\Common\Connection.cs" />
     <Compile Include="Classes\OrderContext.cs" />
     <Compile Include="Classes\OrderItemContext.cs" />
@@ -193,6 +194,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Book.cs" />
+    <Compile Include="Model\CartItem.cs" />
     <Compile Include="Model\Order.cs" />
     <Compile Include="Model\OrderItem.cs" />
     <Compile Include="Model\User.cs" />

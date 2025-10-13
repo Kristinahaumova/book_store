@@ -31,20 +31,21 @@ namespace Book_store.Classes
         public void Save(bool Update = false) 
         {
             MySqlConnection connection = Connection.OpenConnection();
+            string roleValue = (this.Role ? 1 : 0).ToString();
             if (Update)
             {
                 Connection.Query("UPDATE `Users` " +
                                     "SET " +
                                         $"`Login` = '{this.Login}', " +
                                         $"`Password` = '{this.Password}', " +
-                                        $"`Role` = '{this.Role}' " +
+                                        $"`Role` = {roleValue} " +
                                     $"WHERE `Id` = {this.Id}", connection);
             }
             else 
             {
                 Connection.Query("INSERT INTO `Users` " + 
                                     "(`Login`, `Password`, `Role`) " + 
-                                 $"VALUES ('{this.Login}', '{this.Password}', '{this.Role}')", connection);
+                                 $"VALUES ('{this.Login}', '{this.Password}', {roleValue})", connection);
             }
         }
 
