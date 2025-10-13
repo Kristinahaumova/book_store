@@ -15,11 +15,12 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Rectangle Grid.ColumnSpan="3" Grid.RowSpan="3">
+        <Rectangle Grid.ColumnSpan="3" Grid.RowSpan="4">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#F0F8FF" Offset="0"/>
@@ -46,11 +47,41 @@
             </Grid>
         </Border>
 
-        <ScrollViewer Grid.ColumnSpan="3" Grid.Row="1" 
+        <Border Grid.ColumnSpan="3" Grid.Row="1" 
+                Background="White" 
+                BorderBrush="#CCCCCC" 
+                BorderThickness="0,1,0,1" 
+                Padding="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" 
+                         x:Name="txtSearch" 
+                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" 
+                         Width="300" 
+                         Padding="10" 
+                         Margin="0,0,10,0"
+                         BorderBrush="#BDC3C7" 
+                         BorderThickness="1" 
+                         VerticalContentAlignment="Center"
+                         ToolTip="Поиск по названию или автору"/>
+
+                <TextBlock Grid.Column="1" 
+                           Text="{Binding FilteredBooksView.View.Count, StringFormat='Найдено книг: {0}'}" 
+                           VerticalAlignment="Center" 
+                           HorizontalAlignment="Right"
+                           Foreground="#34495E"/>
+            </Grid>
+        </Border>
+
+        <ScrollViewer Grid.ColumnSpan="3" Grid.Row="2" 
                       VerticalScrollBarVisibility="Auto" 
                       HorizontalScrollBarVisibility="Disabled" 
                       Margin="20">
-            <ItemsControl ItemsSource="{Binding Books}">
+            <ItemsControl ItemsSource="{Binding FilteredBooksView.View}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical"/>
@@ -63,13 +94,13 @@
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:BookItem DataContext="{Binding}"/>
+                        <local:BookItem DataContext="{Binding}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
 
-        <Border Grid.ColumnSpan="3" Grid.Row="2" 
+        <Border Grid.ColumnSpan="3" Grid.Row="3" 
                 Background="White" 
                 BorderBrush="#CCCCCC" 
                 BorderThickness="1,1,1,0" 
