@@ -127,7 +127,7 @@ namespace Book_store.Pages
 
                 worksheet.Columns.AutoFit();
 
-                var filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
+                var filePath = Path.Combine("D:\\Отчёты", fileName);
                 workbook.SaveAs(filePath);
                 workbook.Close();
                 excelApp.Quit();

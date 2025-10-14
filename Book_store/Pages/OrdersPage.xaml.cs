@@ -24,13 +24,20 @@ namespace Book_store.Pages
     public partial class OrdersPage : Page
     {
         private UserContext currentAdminUser;
+        private OrderViewModel viewModel;
         public OrdersPage(UserContext adminUser)
         {
             InitializeComponent();
             currentAdminUser = adminUser;
 
+            viewModel = new OrderViewModel();
+            LoadOrders();
+            DataContext = viewModel;
+        }
+        private void LoadOrders()
+        {
             var allOrders = new OrderContext().AllOrders();
-            DataContext = new { Orders = new ObservableCollection<OrderContext>(allOrders) };
+            viewModel.Orders = new ObservableCollection<OrderContext>(allOrders);
         }
 
         private void Back(object sender, RoutedEventArgs e)
@@ -48,9 +55,8 @@ namespace Book_store.Pages
                 {
                     try
                     {
-                        orderToDelete.Delete(); 
-                        var allOrders = new OrderContext().AllOrders();
-                        ((dynamic)DataContext).Orders = new ObservableCollection<OrderContext>(allOrders);
+                        orderToDelete.Delete();
+                        viewModel.Orders.Remove(orderToDelete); 
                         MessageBox.Show("Заказ удален!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)

@@ -89,7 +89,6 @@ namespace Book_store.Pages
 
                 MessageBox.Show("Регистрация прошла успешно! Теперь вы можете авторизоваться.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                // Очистка полей
                 txtLogin.Clear();
                 pwdPassword.Clear();
                 pwdConfirmPassword.Clear();

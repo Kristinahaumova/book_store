@@ -23,12 +23,19 @@ namespace Book_store.Pages
     public partial class UsersPage : Page
     {
         private UserContext currentAdminUser;
+        private UserViewModel viewModel;
         public UsersPage(UserContext adminUser)
         {
             InitializeComponent();
             currentAdminUser = adminUser;
+            viewModel = new UserViewModel();
+            LoadUsers();
+            DataContext = viewModel;
+        }
+        private void LoadUsers()
+        {
             var allUsers = new UserContext().AllUsers();
-            DataContext = new { Users = new ObservableCollection<UserContext>(allUsers) };
+            viewModel.Users = new ObservableCollection<UserContext>(allUsers);
         }
 
         private void Back(object sender, RoutedEventArgs e)
@@ -53,8 +60,7 @@ namespace Book_store.Pages
                     try
                     {
                         userToDelete.Delete();
-                        var allUsers = new UserContext().AllUsers();
-                        ((dynamic)DataContext).Users = new ObservableCollection<UserContext>(allUsers);
+                        viewModel.Users.Remove(userToDelete); 
                         MessageBox.Show("Пользователь удален!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)

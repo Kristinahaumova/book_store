@@ -128,11 +128,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\BookContext.cs" />
+    <Compile Include="Classes\BookViewModel.cs" />
     <Compile Include="Classes\CartViewModel.cs" />
     <Compile Include="Classes\Common\Connection.cs" />
     <Compile Include="Classes\OrderContext.cs" />
     <Compile Include="Classes\OrderItemContext.cs" />
+    <Compile Include="Classes\OrderViewModel.cs" />
     <Compile Include="Classes\UserContext.cs" />
+    <Compile Include="Classes\UserViewModel.cs" />
     <Compile Include="Elements\BookItem.xaml.cs">
       <DependentUpon>BookItem.xaml</DependentUpon>
     </Compile>

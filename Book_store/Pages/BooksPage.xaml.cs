@@ -23,12 +23,19 @@ namespace Book_store.Pages
     public partial class BooksPage : Page
     {
         private UserContext currentAdminUser;
+        private BookViewModel viewModel;
         public BooksPage(UserContext adminUser)
         {
             InitializeComponent();
             currentAdminUser = adminUser;
+            viewModel = new BookViewModel();
+            LoadBooks();
+            DataContext = viewModel;
+        }
+        private void LoadBooks()
+        {
             var allBooks = new BookContext().AllBooks();
-            DataContext = new { Books = new ObservableCollection<BookContext>(allBooks) };
+            viewModel.Books = new ObservableCollection<BookContext>(allBooks);
         }
 
         private void Back(object sender, RoutedEventArgs e)
@@ -62,8 +69,7 @@ namespace Book_store.Pages
                     try
                     {
                         bookToDelete.Delete();
-                        var allBooks = new BookContext().AllBooks();
-                        ((dynamic)DataContext).Books = new ObservableCollection<BookContext>(allBooks);
+                        viewModel.Books.Remove(bookToDelete); 
                         MessageBox.Show("Книга удалена!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)
