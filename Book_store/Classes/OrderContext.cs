@@ -29,7 +29,6 @@ namespace Book_store.Classes
                                 TotalCost = data.GetInt32(3)
                             };
 
-                            // Загружаем items на отдельном connection, чтобы избежать nested reader
                             using (MySqlConnection itemConn = new MySqlConnection("server=localhost;port=3306;database=book_store;uid=root;"))
                             {
                                 itemConn.Open();
@@ -55,7 +54,6 @@ namespace Book_store.Classes
                 }
                 catch (Exception ex)
                 {
-                    // Логируй ex, если нужно
                     throw;
                 }
             }
@@ -98,7 +96,6 @@ namespace Book_store.Classes
                             cmd.Parameters.AddWithValue("@TotalCost", TotalCost);
                             cmd.ExecuteNonQuery();
 
-                            // Получаем ID
                             cmd.CommandText = "SELECT LAST_INSERT_ID()";
                             Id = Convert.ToInt32(cmd.ExecuteScalar());
                         }
